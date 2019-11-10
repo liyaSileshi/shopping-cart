@@ -10,15 +10,13 @@
 
         <script>
             const cart = [ ]
-            const obj = {name:'liya', age: 21}
-            console.log(obj)
-            console.log(obj.name)
-            console.log(obj.age)
             function addItem(name, price) {
-                cart.push(name)
+                const item = {name:name, price:price, qty:1}
+                cart.push(item)
             }
             function showItems() {
-                console.log(cart)
+                console.log('You have ' +cart.length+ ' items in your cart')
+                console.log(`You have ${cart.length} items in your cart`)
             }
             addItem('Apple', 2.99)
             addItem('Banana', 3.99)
