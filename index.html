@@ -7,7 +7,11 @@
         </style>
     </head>
     <body>
-        
+        <form id='add-form'>
+            <label>Name:<input id='item-name' type='text' placeholder="Item Name"> </label>
+            <label>Price:<input id='item-price' type='number' step='0.01' placeholder="Item Price"> </label>
+            <button type='submit'>Add Item</button>
+        </form>
         <div id='qty'>
             <!-- cart qty here -->
         </div>
@@ -24,8 +28,35 @@
             const itemList = document.getElementById('item-list')
             const quantity = document.getElementById('qty')
             const totalPrice = document.getElementById('total')
+            const addForm = document.getElementById('add-form')
+            const itemName = document.getElementById('item-name')
+            const itemPrice = document.getElementById('item-price')
 
             const cart = []
+
+            // --------------------------------------------
+            // Handle clicks on list
+            itemList.onclick = function(e) {
+                // console.log('clicked list!')
+                if(e.target && e.target.classList.contains('remove')) {
+                    // remove from list
+                    const name = e.target.dataset.name //data-name ='???'
+                    removeItemQty(name)
+                    // console.log(name)
+                }
+            }
+
+            // ---------------------------------------------
+            // Handle add form submit
+            addForm.onsubmit = function(e) {
+                e.preventDefault()
+                console.log(e)
+                const name = itemName.value
+                const price = itemPrice.value
+                addItem(name, price)
+            }
+
+
             // ---------------------------------------------
             // Add item
             function addItem(name, price) {
@@ -33,11 +64,13 @@
                     if (cart[i].name === name){
                         cart[i].qty += 1
                         // Stop here!
+                        showItems()
                         return 
                     }   
                 }
                 const item = {name, price, qty:1}
                 cart.push(item)
+                showItems()
             }
 
             // ---------------------------------------------------------------------
@@ -53,7 +86,10 @@
                     // const price = cart[i].price
                     // const qty = cart[i].qty
                     const {name, price, qty} = cart[i]
-                    itemStr += `<li> ${name} $${price} x ${qty} = $${price * qty} </li>`
+                    itemStr += `<li>
+                     ${name} $${price} x ${qty} = $${price * qty}
+                     <button class="remove" data-name='${name}'> Remove </button>
+                      </li>`
                 }
                 itemList.innerHTML = itemStr
 
@@ -94,21 +130,22 @@
                         if (cart[i].qty < 1 || qty === 0) {
                             cart.splice(i ,1)
                         }
+                        showItems()
                         return
                     }
                 }
             }            
 
-            addItem('Apple', 2.99)
-            addItem('Banana', 3.99)
-            addItem('Apple', 2.99)
-            addItem('Banana', 3.99)
-            addItem('Negativity', 29.99)
-            showItems()
-            removeItemQty('Negativity')
-            showItems()
-            removeItemQty('Apple', 1)
-            showItems()
+            // addItem('Apple', 2.99)
+            // addItem('Banana', 3.99)
+            // addItem('Apple', 2.99)
+            // addItem('Banana', 3.99)
+            // addItem('Negativity', 29.99)
+            // showItems()
+            // removeItemQty('Negativity')
+            // showItems()
+            // removeItemQty('Apple', 1)
+            // showItems()
         </script>
     </body>
 </html>
