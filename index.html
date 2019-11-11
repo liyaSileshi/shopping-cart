@@ -3,27 +3,50 @@
     <head>
         <tilte></tilte>
         <style>
-        
+
+            body{
+                font-family: Helvetica;
+                font-size: 16px;
+                font-weight: 200;
+            }
+            .container{
+                width: 800px;
+                margin: auto;
+            }
+            ul{
+                margin:0;
+                padding:0;
+                list-style: none;
+            }
+
+            input{
+                padding: 0.5em;
+                margin: 1em;
+            }
+            button{
+                padding: 0.5em;
+            }
         </style>
     </head>
     <body>
-        <form id='add-form'>
-            <label>Name:<input id='item-name' type='text' placeholder="Item Name"> </label>
-            <label>Price:<input id='item-price' type='number' step='0.01' placeholder="Item Price"> </label>
-            <button type='submit'>Add Item</button>
-        </form>
-        <div id='qty'>
-            <!-- cart qty here -->
-        </div>
-       
-        <ul id="item-list">
-            <!--Cart Items -->
-        </ul>
+        <div class='container'>
+            <form id='add-form'>
+                <label>Name:<input id='item-name' type='text' placeholder="Item Name"> </label>
+                <label>Price:<input id='item-price' type='number' step='0.01' placeholder="Item Price"> </label>
+                <button type='submit'>Add Item</button>
+            </form>
+            <div id='qty'>
+                <!-- cart qty here -->
+            </div>
+        
+            <ul id="item-list">
+                <!--Cart Items -->
+            </ul>
 
-        <div id = 'total'>
-            <!-- total price here -->
+            <div id = 'total'>
+                <!-- total price here -->
+            </div>
         </div>
-
         <script>
             const itemList = document.getElementById('item-list')
             const quantity = document.getElementById('qty')
@@ -110,7 +133,7 @@
                     // const qty = cart[i].qty
                     const {name, price, qty} = cart[i]
                     itemStr += `<li>
-                     ${name} $${price} x ${qty} = $${price * qty}
+                     ${name} $${price.toFixed(2)} x ${qty} = $${(price * qty).toFixed(2)}
                      <button class="remove" data-name='${name}'> Remove </button>
                      <button class="increment" data-name='${name}'> + </button>
                      <button class="decrement" data-name='${name}'> - </button>
@@ -118,8 +141,6 @@
                       </li>`
                 }
                 itemList.innerHTML = itemStr
-
-
                 const total_price = getTotalPrice()
                 // console.log(`Your total price is $${total_price}`)
                 totalPrice.innerHTML = `<p>Total price in cart: $${total_price}</p>`
@@ -178,10 +199,10 @@
                 }
             }
 
-            // addItem('Apple', 2.99)
-            // addItem('Banana', 3.99)
-            // addItem('Apple', 2.99)
-            // addItem('Banana', 3.99)
+            addItem('Apple', 2.99)
+            addItem('Banana', 3.99)
+            addItem('Apple', 2.99)
+            addItem('Banana', 3.99)
             // addItem('Negativity', 29.99)
             // showItems()
             // removeItemQty('Negativity')
